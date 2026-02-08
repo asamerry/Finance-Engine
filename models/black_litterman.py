@@ -8,10 +8,6 @@ warnings.filterwarnings("ignore", category=pd.errors.Pandas4Warning)
 
 from models.markowitz import MarkowitzModel
 
-# Example views
-# AAPL 0.1 [up/down]
-# GOOG 0.25 [over/under] NVDA
-
 def is_asset(tok, prices):
     return tok in prices.columns
 
@@ -86,7 +82,7 @@ class BlackLittermanModel(MarkowitzModel):
     def __init__(self, prices, short, penalty, penalty_weight, views_file):
         super().__init__(prices, short, penalty, penalty_weight, "none")
         self.title = "Black-Litterman"
-        tau = 0.05
+        tau = 0.05 # [0, 1]
         Q, P = get_views(views_file, prices)
         Omega = np.diag(np.diag(tau * P @ self.Sigma @ P.T))
         

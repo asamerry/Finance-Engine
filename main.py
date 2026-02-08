@@ -1,7 +1,6 @@
 import pandas as pd
 import cvxpy as cp
-import os, argparse, yaml
-from glob import glob
+import argparse, yaml
 import yfinance as yf
 
 from models.markowitz import MarkowitzModel
@@ -24,7 +23,7 @@ with open(args.config, "r") as file:
 
 # Load price data
 print("Loading prices data ...")
-assets = list(pd.read_csv("assets/asset-list.csv")["ABBREVIATION"])
+assets = list(pd.read_csv(config["data-in"]["assets-file"])["ABBREVIATION"])
 num_stocks = len(assets)
 data = [yf.Ticker(asset).history(period=config["data-in"]["period"], interval=config["data-in"]["interval"])[config["data-in"]["data-col"]] for asset in assets]
 prices = pd.DataFrame(dict(zip(assets, data)))
