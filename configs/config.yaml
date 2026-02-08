@@ -1,5 +1,6 @@
 data-in:
   portfolio-value: 1 # for proportions, use 1
+  assets-file: assets/asset-list.csv
   index-col: Date
   data-col: Close # Open/High/Low/Close/Adj Close/Volume
   period: 1y # 1d/5d/1mo/3mo/6mo/1y/2y/5y/10y/ytd/max
