@@ -44,7 +44,7 @@ From this frontier, the application selects the portfolio with the maximum Sharp
 Mathematically, the optimization problem is formulated as:
 
 $$\begin{align*}
-      \text{minimize}\ \ & \underline{\omega}^T \underline{\underline{\Sigma}}\, \underline{\omega} + \lambda \gamma(\underline{\omega}) \\
+      \text{minimize}\ \ & \underline{\omega}^T \underline{\underline{\Sigma}} \underline{\omega} + \lambda \gamma(\underline{\omega}) \\
     \text{subject to}\ \ & \underline{\mu^T} \underline{\omega} = r \\
                          & \underline{1}^T \underline{\omega} = 1
 \end{align*}$$
@@ -63,7 +63,9 @@ While conceptually simple, the Mean–Variance framework remains foundational in
 The simplest and most direct method of estimating expected returns is by use of historical averages of asset returns. This estimator assumes that past return behavior is informative about future expectations and serves as the baseline return model. 
 
 The formula is given as
+
 $$\underline{\mu} := \mathbb E[\underline{R}] = \frac1T \sum_{t=1}^T \frac{P_{t} - P_{t-1}}{P_{t-1}},$$
+
 where $P_t$ is the price of an asset at time $t$. 
 
 While simple, historical estimation is fully data-driven, avoids imposing equilibrium assumptions, and provides a strong basis for the construction of more complex return estimations. However, it may be sensitive to sampling noise, regime shifts, and limited data windows.
@@ -73,7 +75,9 @@ While simple, historical estimation is fully data-driven, avoids imposing equili
 The Capital Asset Pricing Model (CAPM) provides a method for estimating expected returns based on systematic market risk. Rather than relying solely on historical averages, CAPM links expected returns to an asset’s exposure to the overall market.
 
 The CAPM formula is given by
+
 $$\underline{\mu} := \mathbb E[\underline{R}] = r_f + \underline{\beta}(r_m - r_f),$$
+
 where $r_f$ is the market risk-free rate, $r_m$ is the equilibrium market return, and $\underline{\beta}$ is the vector of systematic risk for each portfolio asset. 
 
 CAPM-based estimates are particularly useful when seeking theoretically grounded return forecasts or when historical means appear unstable.
@@ -83,7 +87,9 @@ CAPM-based estimates are particularly useful when seeking theoretically grounded
 The Black-Litterman Model provides a more advanced architecture for estimating returns based not only on prior returns, but also on the personal views of the investor. The model was developed by Fisher Black and Robert Litterman in 1990 at Goldman Sachs whose goal was to allow investors to provided subjective information to a rigorously mathematical model. 
 
 The expected returns are given as follows:
+
 $$\underline{\mu} := \mathbb E[\underline{R}] = [(\tau\underline{\underline{\Sigma}})^{-1} + \underline{\underline{P}}^T\underline{\underline{\Omega}}^{-1}\underline{\underline{P}}]^{-1}[(\tau\underline{\underline{\Sigma}})^{-1}\underline{\Pi} + \underline{\underline{P}}^T\underline{\underline{\Omega}}^{-1}\underline{Q}],$$
+
 where $\tau$ is a scalar, $\underline{\underline{\Sigma}}$ is the risk matrix of returns, $\underline{Q}$ is the vector of view weights, $\underline{\underline{P}}$ is the picking matrix of views, $\underline{\underline{\Omega}}$ is the uncertainty matrix of views, and $\underline{\Pi}$ is the vector of prior expected returns. 
 
 When using Black-Litterman returns in this application, we requires views files with a list of views, written in a spcific, interpretable format. There are two ways to state a view. 
@@ -100,7 +106,8 @@ For example, if you think that the price of Amazon stock will rise by 10%, we wr
 Variance is the simplest and most intuitive of the risk measures available to us. Specifically, we uses the covariance matrix of asset returns, denoted as $\underline{\underline{\Sigma}}$. 
 
 The formula is 
-$$\text{Risk}(\underline{\omega}) = \text{Var}(\underline{R}\, \underline{\omega}) = \underline{\omega}^T\underline{\underline{\Sigma}}\, \underline{\omega}.$$
+
+$$\text{Risk}(\underline{\omega}) = \text{Var}(\underline{R} \underline{\omega}) = \underline{\omega}^T\underline{\underline{\Sigma}} \underline{\omega}.$$
 
 This quadratic form captures both individual asset volatility and cross-asset correlations. Diversification effects arise naturally from the covariance structure: assets with low or negative correlations reduce overall portfolio variance.
 
