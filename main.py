@@ -1,8 +1,6 @@
-import pandas as pd
 import os, argparse, yaml
-from datetime import datetime as dt
-import yfinance as yf
 
+from utils import get_prices_data
 from optimizers import Markowitz
 
 # Parse CLI Arguments
@@ -16,22 +14,13 @@ with open(args.config, "r") as file:
     config = yaml.safe_load(file)
 
 # Load price data
-date = dt.today().date()
-prices_file = f"data/{date}-prices.csv"
-if os.path.exists(prices_file) and not args.recache:
-    print("Loading cached prices ...")
-    prices = pd.read_csv(prices_file, index_col="Date")
-    print(f"Data collected through {prices.index[-1].split(" ")[0]}")
-else:
-    print("Loading live prices ...")
-    assets = list(pd.read_csv(config["data-in"]["assets-file"])["ABBREVIATION"])
-    data = [yf.Ticker(asset).history(period=config["data-in"]["period"], interval=config["data-in"]["interval"])[config["data-in"]["data-col"]] for asset in assets]
-    prices = pd.DataFrame(dict(zip(assets, data)))
-    os.makedirs("data", exist_ok=True)
-    prices.to_csv(prices_file)
-    print(f"Data collected through {prices.index[-1].date()}")
-rf_yearly = list(yf.Ticker("^TNX").history(period="1d", interval="1d")["Close"])[0] / 100
-rf_monthly = (1 + rf_yearly) ** (1/12) - 1
+prices, rf = get_prices_data(
+    asset_file = config["data-in"]["asset-file"], 
+    data_col = config["data-in"]["data-col"], 
+    period = config["data-in"]["period"], 
+    interval = config["data-in"]["interval"], 
+    recache = args.recache
+)
 
 # Call prescribed model
 optimizers = {"markowitz": Markowitz}
@@ -43,7 +32,7 @@ optimizer = optimizers[config["model"]["optimizer"]](
     short = config["model"]["short"], 
     penalty = config["model"]["penalty"],
     penalty_weight = config["model"]["penalty-weight"],
-    rf = rf_monthly,
+    rf = rf,
     views_file = config["data-in"]["views-file"], 
     recache = args.recache
 )

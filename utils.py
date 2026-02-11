@@ -6,6 +6,24 @@ from datetime import datetime as dt
 import os, warnings
 warnings.filterwarnings("ignore", category=pd.errors.Pandas4Warning)
 
+def get_prices_data(asset_file, data_col, period, interval, recache):
+    date = dt.today().date()
+    prices_file = f"data/{date}-prices.csv"
+    if os.path.exists(prices_file) and not recache:
+        print("Loading cached prices ...")
+        prices = pd.read_csv(prices_file, index_col="Date")
+        print(f"Data collected through {prices.index[-1].split(" ")[0]}")
+    else:
+        print("Loading live prices ...")
+        assets = list(pd.read_csv(asset_file)["ABBREVIATION"])
+        data = [yf.Ticker(asset).history(period=period, interval=interval)[data_col] for asset in assets]
+        prices = pd.DataFrame(dict(zip(assets, data)))
+        os.makedirs("data", exist_ok=True)
+        prices.to_csv(prices_file)
+        print(f"Data collected through {prices.index[-1].date()}")
+    rf_yearly = list(yf.Ticker("^TNX").history(period="1d", interval="1d")["Close"])[0] / 100
+    rf_monthly = (1 + rf_yearly) ** (1/12) - 1
+    return prices, rf_monthly
 
 def is_asset(tok, prices):
     return tok in prices.columns
