@@ -1,7 +1,7 @@
 import numpy as np
-from matplotlib import pyplot as plt
-import warnings
+import matplotlib.pyplot as plt
 import cvxpy as cp
+import warnings
 
 from utils import get_returns, get_risk
 
@@ -35,7 +35,7 @@ class _Optimizer:
         self.expected_risk = get_risk(risk_est, returns_historic)
         self.expected_returns = get_returns(return_est, returns_historic, self.expected_risk, rf, views_file, recache)
 
-class Markowitz(_Optimizer):
+class MarkowitzOptimizer(_Optimizer):
     def __init__(self, prices, portfolio_value, return_est, risk_est, short, penalty, penalty_weight, rf, views_file, recache):
         super().__init__(prices, portfolio_value, return_est, risk_est, short, penalty, penalty_weight, rf, views_file, recache)
         self.omega_vec = []; self.objective_values = []

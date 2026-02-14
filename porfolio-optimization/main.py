@@ -1,7 +1,7 @@
 import os, argparse, yaml
 
 from utils import get_prices_data
-from optimizers import Markowitz
+from optimizers import MarkowitzOptimizer
 
 # Parse CLI Arguments
 parser = argparse.ArgumentParser(usage="python3 main.py --config [config-file] \nUse --recache to force new data.")
@@ -23,7 +23,7 @@ prices, rf = get_prices_data(
 )
 
 # Call prescribed model
-optimizers = {"markowitz": Markowitz}
+optimizers = {"markowitz": MarkowitzOptimizer}
 optimizer = optimizers[config["model"]["optimizer"]](
     prices = prices, 
     portfolio_value = config["data-in"]["portfolio-value"], 
