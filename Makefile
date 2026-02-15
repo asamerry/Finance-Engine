@@ -2,7 +2,7 @@ all: fe-env
 
 fe-env:
 	@python3 -m venv .fe-env/
-	@.fe-env/bin/pip3 install -r requirements.txt
+	@.geofin-env/bin/pip3 install -r requirements.txt
 
 	@clear
 
@@ -14,4 +14,4 @@ fe-env:
 	@echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
 clean:
-	@rm -rf .fe-env/ *data/ *exports/
+	@rm -rf .geofin-env/ *data/ *exports/
