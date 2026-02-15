@@ -6,13 +6,15 @@ geofin-env:
 
 	@clear
 
-	@echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+	@echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 	@echo " Welcome to the GeoFin Framework!"
+	@echo "----------------------------------"
 	@echo " Here you can optimize your portfolio or price financial derivatives,"
 	@echo " but we recommend customizing your configuration file before getting "
 	@echo " started. We provided one for guidance at 'configs/config.yaml'."
-	@echo " Don't forget to use 'source .geofin-env/bin/activate' before starting."
-	@echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+	@echo " Don't forget to use 'source .geofin-env/bin/activate' to load the"
+	@echo " required packages."
+	@echo "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
 
 clean:
 	@rm -rf .geofin-env/ *data/ *exports/
